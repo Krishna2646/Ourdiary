@@ -84,7 +84,7 @@ MIT License — see [LICENSE](LICENSE) for details.
 ## Support
 
 Questions or suggestions?  
-Open an issue or contact: [your@email.com](mailto:your@email.com)
+Open an issue or contact: [your@email.com](mailto:help.ourdiary@email.com)
 
 
 > Start capturing your moments today with OurDiary — your private, unlimited cloud diary!
