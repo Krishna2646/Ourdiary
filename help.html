@@ -1,0 +1,440 @@
+<html>
+
+<head>
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;700;800" />
+  <title>Help Our diary</title>
+  <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;
+    }
+
+    .design-root {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background: #fff;
+      justify-content: space-between;
+      overflow-x: hidden;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .header-row {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      padding: 16px 16px 8px 16px;
+      justify-content: space-between;
+    }
+
+    .icon-btn {
+      color: #121416;
+      display: flex;
+      width: 48px;
+      height: 48px;
+      min-width: 48px;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .header-title {
+      color: #121416;
+      font-size: 1.125rem;
+      font-weight: bold;
+      line-height: 1.25;
+      letter-spacing: -0.015em;
+      flex: 1;
+      text-align: center;
+      padding-right: 48px;
+      margin: 0;
+    }
+
+    .search-section {
+      padding: 12px 16px;
+    }
+
+    .search-label {
+      display: flex;
+      flex-direction: column;
+      min-width: 160px;
+      height: 48px;
+      width: 100%;
+    }
+
+    .search-row {
+      display: flex;
+      width: 100%;
+      flex: 1;
+      align-items: stretch;
+      border-radius: 0.75rem;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .search-icon {
+      color: #6a7681;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f1f2f4;
+      border: none;
+      padding-left: 16px;
+      border-top-left-radius: 0.75rem;
+      border-bottom-left-radius: 0.75rem;
+      border-right: 0;
+      height: 100%;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 0;
+      border: none;
+      background: #f1f2f4;
+      color: #121416;
+      outline: none;
+      height: 100%;
+      padding: 0 16px 0 8px;
+      font-size: 1rem;
+      font-weight: normal;
+      line-height: normal;
+      border-radius: 0 0.75rem 0.75rem 0;
+    }
+
+    .search-input::placeholder {
+      color: #6a7681;
+    }
+
+    .section-title {
+      color: #121416;
+      font-size: 22px;
+      font-weight: bold;
+      line-height: 1.25;
+      letter-spacing: -0.015em;
+      padding: 20px 16px 12px 16px;
+      margin: 0;
+    }
+
+    .question-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: #fff;
+      padding: 8px 16px;
+      min-height: 72px;
+    }
+
+    .question-icon {
+      color: #121416;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.75rem;
+      background: #f1f2f4;
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+    }
+
+    .question-details {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .question-title {
+      color: #121416;
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: normal;
+      margin: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .question-desc {
+      color: #6a7681;
+      font-size: 0.875rem;
+      font-weight: normal;
+      line-height: normal;
+      margin: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .footer-nav {
+      display: flex;
+      gap: 8px;
+      border-top: 1px solid #f1f2f4;
+      background: #fff;
+      padding: 0 16px 12px 16px;
+      padding-top: 8px;
+    }
+
+    .footer-link {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 4px;
+      border-radius: 9999px;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+
+    .footer-link.active {
+      color: #121416;
+    }
+
+    .footer-link:not(.active) {
+      color: #6a7681;
+    }
+
+    .footer-icon {
+      display: flex;
+      height: 32px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .footer-spacer {
+      height: 20px;
+      background: #fff;
+    }
+
+    /* mobile responsive*/
+    @media (width<=500px) {
+
+      .header-row,
+      .section-title,
+      .question-row,
+      .footer-nav {
+        width: 100vw;
+      }
+
+      .search-section {
+        padding: 12px 16px;
+      }
+
+      .search-label {
+        display: flex;
+        flex-direction: column;
+        min-width: 160px;
+        height: 48px;
+        width: 100%;
+      }
+
+      .search-row {
+        display: flex;
+        width: 100%;
+        flex: 1;
+        align-items: stretch;
+        border-radius: 0.75rem;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      .search-icon {
+        color: #6a7681;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f1f2f4;
+        border: none;
+        padding-left: 16px;
+        border-top-left-radius: 0.75rem;
+        border-bottom-left-radius: 0.75rem;
+        border-right: 0;
+        height: 100%;
+      }
+
+      .search-input {
+        flex: 1;
+        min-width: 0;
+        border: none;
+        background: #f1f2f4;
+        color: #121416;
+        outline: none;
+        height: 100%;
+        padding: 0 16px 0 8px;
+        font-size: 1rem;
+        font-weight: normal;
+        line-height: normal;
+        border-radius: 0 0.75rem 0.75rem 0;
+      }
+
+      .search-input::placeholder {
+        color: #6a7681;
+      }
+    }
+
+    @media (width>=1024px) {
+
+      .header-row,
+      .section-title,
+      .question-row,
+      .footer-nav {
+        width: fit-content;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="design-root">
+    <div>
+      <div class="header-row">
+        <div class="icon-btn" data-icon="ArrowLeft" data-size="24px" data-weight="regular">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+            <path
+              d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z">
+            </path>
+          </svg>
+        </div>
+        <h2 class="header-title">Help</h2>
+      </div>
+      <div class="search-section">
+        <label class="search-label">
+          <div class="search-row">
+            <div class="search-icon" data-icon="MagnifyingGlass" data-size="24px" data-weight="regular">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
+                viewBox="0 0 256 256">
+                <path
+                  d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z">
+                </path>
+              </svg>
+            </div>
+            <input placeholder="Search" class="search-input" value="" />
+          </div>
+        </label>
+      </div>
+      <h2 class="section-title">Common Questions</h2>
+      <div class="question-row">
+        <div class="question-icon" data-icon="Question" data-size="24px" data-weight="regular">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+            <path
+              d="M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z">
+            </path>
+          </svg>
+        </div>
+        <div class="question-details">
+          <p class="question-title">Getting Started</p>
+          <p class="question-desc">Learn how to create and share entries</p>
+        </div>
+      </div>
+      <div class="question-row">
+        <div class="question-icon" data-icon="Gear" data-size="24px" data-weight="regular">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+            <path
+              d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm88-29.84q.06-2.16,0-4.32l14.92-18.64a8,8,0,0,0,1.48-7.06,107.21,107.21,0,0,0-10.88-26.25,8,8,0,0,0-6-3.93l-23.72-2.64q-1.48-1.56-3-3L186,40.54a8,8,0,0,0-3.94-6,107.71,107.71,0,0,0-26.25-10.87,8,8,0,0,0-7.06,1.49L130.16,40Q128,40,125.84,40L107.2,25.11a8,8,0,0,0-7.06-1.48A107.6,107.6,0,0,0,73.89,34.51a8,8,0,0,0-3.93,6L67.32,64.27q-1.56,1.49-3,3L40.54,70a8,8,0,0,0-6,3.94,107.71,107.71,0,0,0-10.87,26.25,8,8,0,0,0,1.49,7.06L40,125.84Q40,128,40,130.16L25.11,148.8a8,8,0,0,0-1.48,7.06,107.21,107.21,0,0,0,10.88,26.25,8,8,0,0,0,6,3.93l23.72,2.64q1.49,1.56,3,3L70,215.46a8,8,0,0,0,3.94,6,107.71,107.71,0,0,0,26.25,10.87,8,8,0,0,0,7.06-1.49L125.84,216q2.16.06,4.32,0l18.64,14.92a8,8,0,0,0,7.06,1.48,107.21,107.21,0,0,0,26.25-10.88,8,8,0,0,0,3.93-6l2.64-23.72q1.56-1.48,3-3L215.46,186a8,8,0,0,0,6-3.94,107.71,107.71,0,0,0,10.87-26.25,8,8,0,0,0-1.49-7.06Zm-16.1-6.5a73.93,73.93,0,0,1,0,8.68,8,8,0,0,0,1.74,5.48l14.19,17.73a91.57,91.57,0,0,1-6.23,15L187,173.11a8,8,0,0,0-5.1,2.64,74.11,74.11,0,0,1-6.14,6.14,8,8,0,0,0-2.64,5.1l-2.51,22.58a91.32,91.32,0,0,1-15,6.23l-17.74-14.19a8,8,0,0,0-5-1.75h-.48a73.93,73.93,0,0,1-8.68,0,8,8,0,0,0-5.48,1.74L100.45,215.8a91.57,91.57,0,0,1-15-6.23L82.89,187a8,8,0,0,0-2.64-5.1,74.11,74.11,0,0,1-6.14-6.14,8,8,0,0,0-5.1-2.64L46.43,170.6a91.32,91.32,0,0,1-6.23-15l14.19-17.74a8,8,0,0,0,1.74-5.48,73.93,73.93,0,0,1,0-8.68,8,8,0,0,0-1.74-5.48L40.2,100.45a91.57,91.57,0,0,1,6.23-15L69,82.89a8,8,0,0,0,5.1-2.64,74.11,74.11,0,0,1,6.14-6.14A8,8,0,0,0,82.89,69L85.4,46.43a91.32,91.32,0,0,1,15-6.23l17.74,14.19a8,8,0,0,0,5.48,1.74,73.93,73.93,0,0,1,8.68,0,8,8,0,0,0,5.48-1.74L155.55,40.2a91.57,91.57,0,0,1,15,6.23L173.11,69a8,8,0,0,0,2.64,5.1,74.11,74.11,0,0,1,6.14,6.14,8,8,0,0,0,5.1,2.64l22.58,2.51a91.32,91.32,0,0,1,6.23,15l-14.19,17.74A8,8,0,0,0,199.87,123.66Z">
+            </path>
+          </svg>
+        </div>
+        <div class="question-details">
+          <p class="question-title">Account Settings</p>
+          <p class="question-desc">Manage your account settings and privacy</p>
+        </div>
+      </div>
+      <div class="question-row">
+        <div class="question-icon" data-icon="Bug" data-size="24px" data-weight="regular">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+            <path
+              d="M144,92a12,12,0,1,1,12,12A12,12,0,0,1,144,92ZM100,80a12,12,0,1,0,12,12A12,12,0,0,0,100,80Zm116,64A87.76,87.76,0,0,1,213,167l22.24,9.72A8,8,0,0,1,232,192a7.89,7.89,0,0,1-3.2-.67L207.38,182a88,88,0,0,1-158.76,0L27.2,191.33A7.89,7.89,0,0,1,24,192a8,8,0,0,1-3.2-15.33L43,167A87.76,87.76,0,0,1,40,144v-8H16a8,8,0,0,1,0-16H40v-8a87.76,87.76,0,0,1,3-23L20.8,79.33a8,8,0,1,1,6.4-14.66L48.62,74a88,88,0,0,1,158.76,0l21.42-9.36a8,8,0,0,1,6.4,14.66L213,89.05a87.76,87.76,0,0,1,3,23v8h24a8,8,0,0,1,0,16H216ZM56,120H200v-8a72,72,0,0,0-144,0Zm64,95.54V136H56v8A72.08,72.08,0,0,0,120,215.54ZM200,144v-8H136v79.54A72.08,72.08,0,0,0,200,144Z">
+            </path>
+          </svg>
+        </div>
+        <div class="question-details">
+          <p class="question-title">Troubleshooting</p>
+          <p class="question-desc">Troubleshoot common issues and errors</p>
+        </div>
+      </div>
+      <div class="question-row">
+        <div class="question-icon" data-icon="Envelope" data-size="24px" data-weight="regular">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+            <path
+              d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48Zm-96,85.15L52.57,64H203.43ZM98.71,128,40,181.81V74.19Zm11.84,10.85,12,11.05a8,8,0,0,0,10.82,0l12-11.05,58,53.15H52.57ZM157.29,128,216,74.18V181.82Z">
+            </path>
+          </svg>
+        </div>
+        <div class="question-details">
+          <p class="question-title">Contact Us</p>
+          <p class="question-desc">Contact support for assistance</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="footer-nav">
+        <a class="footer-link active" href="#">
+          <div class="footer-icon" data-icon="House" data-size="24px" data-weight="fill">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
+              viewBox="0 0 256 256">
+              <path
+                d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.53,0,1.14,1.14,0,0,0,.11.11l80,75.48A16,16,0,0,1,224,115.55Z">
+              </path>
+            </svg>
+          </div>
+        </a>
+        <a class="footer-link" href="#">
+          <div class="footer-icon" data-icon="Users" data-size="24px" data-weight="regular">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
+              viewBox="0 0 256 256">
+              <path
+                d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z">
+              </path>
+            </svg>
+          </div>
+        </a>
+        <a class="footer-link" href="#">
+          <div class="footer-icon" data-icon="Plus" data-size="24px" data-weight="regular">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
+              viewBox="0 0 256 256">
+              <path
+                d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z">
+              </path>
+            </svg>
+          </div>
+        </a>
+        <a class="footer-link" href="#">
+          <div class="footer-icon" data-icon="Bell" data-size="24px" data-weight="regular">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
+              viewBox="0 0 256 256">
+              <path
+                d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z">
+              </path>
+            </svg>
+          </div>
+        </a>
+        <a class="footer-link" href="#">
+          <div class="footer-icon" data-icon="User" data-size="24px" data-weight="regular">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor"
+              viewBox="0 0 256 256">
+              <path
+                d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z">
+              </path>
+            </svg>
+          </div>
+        </a>
+      </div>
+      <div class="footer-spacer"></div>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+ What You’ll Learn & Do
+✅ 1. ML Foundation (By Aug 5)
+✅ Learn basic ML terms (dataset, model, loss, accuracy)
+
+✅ Learn supervised learning types (regression/classification)
+
+✅ Use Python, NumPy, Pandas, Scikit-learn
+
+✅ Train one ML model (I’ll guide you) on a small dataset
+
+⚒️ Tool: Google Colab
+📁 Dataset: Iris or Titanic
+💡 Outcome: Notebook you can show as portfolio
+
+✅ 2. GitHub & Open Source (By Aug 1)
+✅ Learn git clone, fork, pull request
+
+✅ Pick 1 real open-source repo (I'll help)
+
+✅ Make 1 meaningful contribution (bug fix, enhancement)
+
+✅ 3. Orgs Research (By Aug 10)
+✅ Shortlist 3 potential GSoC orgs (you + me together)
+
+✅ Study their past projects, tech stacks
+
+✅ Join their chat/forums
+
+✅ 4. React (By Aug 10)
+✅ Take 1 project you made (e.g., Calculator or Todo)
+
+✅ Convert it to React (with component structure, props/state)
+
+✅ Push to GitHub
+
+✅ 5. GSoC Interest Document (By Aug 15)
+✅ Write what tech you like, what org you want, what you want to build
+
+✅ Keep this as a working doc to build your final proposal from
+

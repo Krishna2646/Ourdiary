@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Profile</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap"
+    rel="stylesheet" />
+  <script src="login.js" defer></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', 'Noto Sans', sans-serif;
+      background: white;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .container {
+      padding: 1rem;
+      max-width: 480px;
+      margin: auto;
+      width: 100%;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 0.5rem;
+    }
+
+    .header svg {
+      cursor: pointer;
+    }
+
+    h2 {
+      flex: 1;
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #121416;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border: none;
+      border-radius: 12px;
+      background-color: #f1f2f4;
+      font-size: 1rem;
+      color: #121416;
+    }
+
+    textarea {
+      min-height: 140px;
+      resize: none;
+    }
+
+    .section-title {
+      font-size: 1.125rem;
+      font-weight: bold;
+      padding-top: 1rem;
+      color: #121416;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #f1f2f4;
+      color: #121416;
+      font-weight: bold;
+      padding: 0.75rem 1rem;
+      border-radius: 9999px;
+      text-align: center;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+
+    .btn-primary {
+      background: #dce8f3;
+      width: 100%;
+      margin-top: 2rem;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(20, 20, 20, 0.4);
+      display: none;
+      justify-content: flex-end;
+      flex-direction: column;
+      z-index: 1000;
+    }
+
+    #upload {
+      display: block;
+    }
+
+    .avatar-panel {
+      background: white;
+      padding: 1rem;
+      max-height: 80%;
+      overflow-y: auto;
+      border-top-left-radius: 1rem;
+      border-top-right-radius: 1rem;
+      position: relative;
+    }
+
+    .handle-bar {
+      width: 36px;
+      height: 4px;
+      background: #dde1e3;
+      border-radius: 2px;
+      margin: 0 auto 1rem;
+    }
+
+    .avatar-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      /* 2 avatars per row by default */
+      gap: 1rem;
+    }
+
+    @media (min-width: 500px) {
+      .avatar-grid {
+        grid-template-columns: repeat(3, 1fr);
+        /* 3 avatars per row on larger phones/tablets */
+      }
+    }
+
+
+    .avatar-item {
+      display: flex;
+      justify-content: center;
+    }
+
+    .avatar-item div {
+      aspect-ratio: 1/1;
+      width: 100%;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+      transition: outline 0.3s;
+    }
+
+    .avatar-item.selected div {
+      outline: 4px solid #4a90e2;
+    }
+
+    .close-overlay {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #121416;
+      cursor: pointer;
+    }
+
+    .preview-section {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .preview-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .preview-details {
+      flex-grow: 1;
+    }
+
+    .preview-name {
+      font-size: 1.125rem;
+      font-weight: bold;
+      margin-bottom: 0.25rem;
+    }
+
+    .preview-bio {
+      font-size: 0.95rem;
+      color: #555;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+        <path
+          d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z">
+        </path>
+      </svg>
+      <h2>Create Profile</h2>
+      <span style="width:24px;"></span>
+    </div>
+
+    <input type="text" id="displayName" placeholder="Display Name" />
+    <textarea id="bio" placeholder="Bio"></textarea>
+
+    <div class="section-title">Profile Photo</div>
+    <div class="btn" onclick="openAvatarSelector()">Choose Avatar</div>
+    <label class="btn">Upload image<input id="upload" type="file" accept="image/*" onchange="handleFileUpload(event)"
+        style="display: none;" /></label>
+
+    <div class="preview-section" id="profilePreview">
+      <img id="preview" class="preview-img" />
+      <div class="preview-details">
+        <div class="preview-name" id="previewName"></div>
+        <div class="preview-bio" id="previewBio"></div>
+      </div>
+    </div>
+
+    <div class="btn btn-primary" onclick="submitProfile()">Continue</div>
+  </div>
+
+  <div class="overlay" id="avatarOverlay" onclick="handleOverlayClick(event)">
+    <div class="avatar-panel" onclick="event.stopPropagation()">
+      <button class="close-overlay" onclick="closeAvatarSelector()">×</button>
+      <div class="handle-bar"></div>
+      <h2 style="text-align: center;">Select an Avatar</h2>
+      <div class="avatar-grid" id="avatarGrid"></div>
+      <div class="btn btn-primary" onclick="confirmAvatarSelection()">Continue</div>
+    </div>
+  </div>
+
+
+</body>
+
+</html>

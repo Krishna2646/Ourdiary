@@ -1,0 +1,122 @@
+ * {
+   @import "C:\my works\my projects_1\OurDiary\Plus_Jakarta_Sans\PlusJakartaSans-Italic-VariableFont_wght.ttf"
+
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+ }
+
+ body {
+   font-family: 'Plus Jakarta Sans', 'Noto Sans', sans-serif;
+   background-color: white;
+   color: #121416;
+   min-height: 100vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }
+
+ .container {
+   max-width: 480px;
+   width: 100%;
+   padding: 20px;
+ }
+
+ .center {
+   text-align: center;
+ }
+
+ h2 {
+   font-size: 28px;
+   font-weight: bold;
+   margin-bottom: 10px;
+ }
+
+ p {
+   font-size: 16px;
+   color: #121416;
+   margin-bottom: 10px;
+ }
+
+ input {
+   width: 100%;
+   background-color: #f1f2f4;
+   border: none;
+   padding: 16px;
+   border-radius: 12px;
+   margin-top: 12px;
+   font-size: 16px;
+   color: #121416;
+ }
+
+ input::placeholder {
+   color: #6a7681;
+ }
+
+ button {
+   width: 100%;
+   height: 48px;
+   background-color: #dce8f3;
+   color: #121416;
+   font-weight: bold;
+   border: none;
+   border-radius: 9999px;
+   margin-top: 16px;
+   cursor: pointer;
+ }
+
+ .center:hover {
+   cursor: default;
+ }
+
+ button:hover {
+   background-color: #b3cee7;
+ }
+
+ .social-btns {
+   display: flex;
+   gap: 10px;
+   margin-top: 10px;
+ }
+
+ .social-btns button {
+   background-color: #f1f2f4;
+   font-size: 14px;
+ }
+
+ .switch-link {
+   color: #6a7681;
+   font-size: 14px;
+   margin-top: 12px;
+   text-align: center;
+   text-decoration: underline;
+   cursor: pointer;
+ }
+
+ .hidden {
+   display: none;
+ }
+
+ .forgot-password {
+   color: #6a7681;
+   font-size: 14px;
+   text-align: right;
+   margin-top: 8px;
+   margin-bottom: -4px;
+   cursor: pointer;
+   text-decoration: underline;
+ }
+
+
+ /*
+    @media(min-width:768px) {
+      body {
+        padding: 0%;
+      }
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 30px;
+    }*/

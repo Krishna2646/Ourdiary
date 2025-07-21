@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Profile</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="profile.css">
+  <style>
+    body {
+      font-family: 'Noto Sans', sans-serif;
+      padding: 20px;
+      margin: 0;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .header svg {
+      cursor: pointer;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .section-title {
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 10px 0;
+      border: none;
+      background-color: #eee;
+      cursor: pointer;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background-color: #007BFF;
+      color: white;
+    }
+
+    .preview-section {
+      display: none;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .preview-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 10px;
+    }
+
+    .avatar-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      padding: 10px;
+    }
+
+    .avatar-item {
+      border: 2px solid transparent;
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .avatar-item.selected {
+      border-color: #007BFF;
+    }
+
+    .avatar-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .avatar-panel {
+      background: white;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 10px;
+      padding: 20px;
+      position: relative;
+    }
+
+    .close-overlay {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      border: none;
+      background: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .preview-details {
+      display: flex;
+      flex-direction: column;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+        <path
+          d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z">
+        </path>
+      </svg>
+      <h2>Create Profile</h2>
+      <span style="width:24px;"></span>
+    </div>
+
+    <input type="text" id="displayName" placeholder="Display Name" />
+    <textarea id="bio" placeholder="Bio"></textarea>
+
+    <div class="section-title">Profile Photo</div>
+    <div class="btn" onclick="openAvatarSelector()">Choose Avatar</div>
+    <label class="btn">Upload image<input id="upload" type="file" accept="image/*" onchange="handleFileUpload(event)"
+        style="display: none;" /></label>
+
+    <div class="preview-section" id="profilePreview">
+      <img id="preview" class="preview-img" />
+      <div class="preview-details">
+        <div class="preview-name" id="previewName"></div>
+        <div class="preview-bio" id="previewBio"></div>
+      </div>
+    </div>
+
+    <div class="btn btn-primary" onclick="submitProfile()">Continue</div>
+  </div>
+
+  <div class="overlay" id="avatarOverlay" onclick="handleOverlayClick(event)">
+    <div class="avatar-panel" onclick="event.stopPropagation()">
+      <button class="close-overlay" onclick="closeAvatarSelector()">×</button>
+      <h2 style="text-align: center;">Select an Avatar</h2>
+      <div class="avatar-grid" id="avatarGrid"></div>
+      <div class="btn btn-primary" onclick="confirmAvatarSelection()">Continue</div>
+    </div>
+  </div>
+
+  <script>
+    const avatarOverlay = document.getElementById('avatarOverlay');
+    const avatarGrid = document.getElementById('avatarGrid');
+    const previewImg = document.getElementById('preview');
+    const profilePreview = document.getElementById('profilePreview');
+    const previewName = document.getElementById('previewName');
+    const previewBio = document.getElementById('previewBio');
+    let selectedAvatar = '';
+
+    const avatarFiles = [
+      'Ava.png', 'Berner.png', 'srri.png', 'Cathy.png', 'Ethan.png', 'Kevin.png',
+      'Lana.png', 'Liam.png', 'Mervin.png', 'Olivia.png', 'Ram.png',
+      'sophie.png', 'sopia.png'
+    ];
+
+    avatarFiles.forEach(filename => {
+      const url = `Avatars/${filename}`;
+      const div = document.createElement('div');
+      div.classList.add('avatar-item');
+      div.innerHTML = `<img src="${url}" alt="${filename}" onclick="selectAvatar(this, '${url}')">`;
+      avatarGrid.appendChild(div);
+    });
+
+    function openAvatarSelector() {
+      avatarOverlay.style.display = 'flex';
+    }
+
+    function closeAvatarSelector() {
+      avatarOverlay.style.display = 'none';
+    }
+
+    function handleOverlayClick(event) {
+      if (event.target === avatarOverlay) closeAvatarSelector();
+    }
+
+    function selectAvatar(elem, url) {
+      document.querySelectorAll('.avatar-item').forEach(item => item.classList.remove('selected'));
+      elem.parentElement.classList.add('selected');
+      selectedAvatar = url;
+    }
+
+    function confirmAvatarSelection() {
+      if (selectedAvatar) {
+        previewImg.src = selectedAvatar;
+        profilePreview.style.display = 'flex';
+        previewName.textContent = document.getElementById('displayName').value;
+        previewBio.textContent = document.getElementById('bio').value;
+        closeAvatarSelector();
+      }
+    }
+
+    function handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          previewImg.src = e.target.result;
+          selectedAvatar = e.target.result;
+          profilePreview.style.display = 'flex';
+          previewName.textContent = document.getElementById('displayName').value;
+          previewBio.textContent = document.getElementById('bio').value;
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function submitProfile() {
+      const name = document.getElementById('displayName').value.trim();
+      const bio = document.getElementById('bio').value.trim();
+
+      if (!name || !selectedAvatar) {
+        alert('Please enter a display name and select or upload an image.');
+        return;
+      }
+
+      // You can send this data to a backend or store it locally
+      alert(`Profile created successfully!\n\nName: ${name}\nBio: ${bio}`);
+    }
+  </script>
+</body>
+
+</html>

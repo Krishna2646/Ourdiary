@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Profile</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="profile.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="header"><!---->
+
+      <h2>Create Profile</h2>
+      <span style="width:24px;"></span>
+    </div>
+
+    <input type="text" id="displayName" placeholder="Display Name" />
+    <textarea id="bio" placeholder="Bio"></textarea>
+
+    <div class="section-title">Profile Photo</div>
+    <div class="btn" onclick="openAvatarSelector()">Choose Avatar</div>
+    <label class="btn">Upload image<input id="upload" type="file" accept="image/*" onchange="handleFileUpload(event)"
+        style="display: none;" /></label>
+    <div id="previewHeading" class="preview-heading hidden">Preview</div>
+    <div class="preview-section hidden" id="previewPanel">
+      <img id="preview" class="preview-img" loading="lazy" />
+      <div class="preview-details">
+        <div class="preview-name" id="previewName"></div>
+        <div class="preview-bio" id="previewBio"></div>
+      </div>
+    </div>
+    <div class="btn btn-primary" onclick="submitProfile()">Continue</div>
+  </div>
+
+  <div class="overlay" id="avatarOverlay" tabindex="0" onclick="handleOverlayClick(event)">
+    <div class="avatar-panel" onclick="event.stopPropagation()">
+      <button class="close-overlay" onclick="closeAvatarSelector()">×</button>
+      <div class="handle-bar"></div>
+      <h1 style="text-align: center; font-weight: bold; font-size: 1.25rem; margin-bottom: 1rem;">Select an Avatar</h1>
+      <div class="avatar-grid" id="avatarGrid"></div>
+      <div class="btn btn-primary" onclick="confirmAvatarSelection()">Continue</div>
+    </div>
+  </div>
+  <div id="customAlert" class="custom-alert hidden">
+    <div class="custom-alert-content">
+      <span id="customAlertMessage"></span>
+      <button onclick="closeCustomAlert()" class="custom-alert-btn">OK</button>
+    </div>
+  </div>
+
+  <script>
+    const previewHeading = document.getElementById('previewHeading');
+    const avatarOverlay = document.getElementById('avatarOverlay');
+    const avatarGrid = document.getElementById('avatarGrid');
+    const previewImg = document.getElementById('preview');
+    const previewPanel = document.getElementById('previewPanel');
+    const previewName = document.getElementById('previewName');
+    const previewBio = document.getElementById('previewBio');
+    let selectedAvatar = '';
+
+    const avatarFiles = [
+      'srri.png', 'Kevin.png', 'Cathy.png', 'Chris.png', 'Chrisma.png', 'Ethan.png',
+      'Lana.png', 'Liam.png', 'Lyla.png', 'Mervin.png', 'Olivia.png', 'Ram.png', 'Ava.png', 'Berner.png',
+      'sophie.png', 'sopia.png', 'Jonny.png', 'silvia.png', 'Sweeney.png', 'vinnu.png'
+    ];
+
+    // Populate avatar grid
+    avatarFiles.forEach(filename => {
+      const url = `Avatars/${filename}`;
+      const div = document.createElement('div');
+      div.classList.add('avatar-item');
+      div.innerHTML = `<div style="background-image: url('${url}');" onclick="selectAvatar(this, '${url}')"></div>`;
+      avatarGrid.appendChild(div);
+    });
+
+    // Utility: Detect mobile device
+    function isMobile() {
+      return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+    }
+
+    // Avatar panel functions
+    function openAvatarSelector() {
+      avatarOverlay.style.display = 'flex';
+      avatarOverlay.focus();
+    }
+
+    function closeAvatarSelector() {
+      avatarOverlay.style.display = 'none';
+    }
+
+    function handleOverlayClick(event) {
+      if (event.target === avatarOverlay) closeAvatarSelector();
+    }
+
+    // When an avatar is selected
+    function selectAvatar(elem, url) {
+      document.querySelectorAll('.avatar-item').forEach(item => item.classList.remove('selected'));
+      elem.parentElement.classList.add('selected');
+      selectedAvatar = url;
+
+      // On mobile, auto-confirm selection
+      if (isMobile()) {
+        confirmAvatarSelection();
+      }
+    }
+
+    // On desktop, listen for Enter key in avatar overlay
+    avatarOverlay.addEventListener('keydown', function (event) {
+      if (!isMobile() && avatarOverlay.style.display === 'flex' && event.key === 'Enter') {
+        event.preventDefault();
+        confirmAvatarSelection();
+      }
+    });
+
+    // Avatar selection confirmation
+    function confirmAvatarSelection() {
+      if (selectedAvatar) {
+        previewImg.src = selectedAvatar;
+        updatePreviewDetails();
+        closeAvatarSelector();
+      }
+    }
+
+    // File upload handling
+    function handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          previewImg.src = e.target.result;
+          selectedAvatar = e.target.result;
+          updatePreviewDetails();
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+
+    // Real-time preview updates
+    function updatePreviewDetails() {
+      previewName.textContent = document.getElementById('displayName').value;
+      previewBio.textContent = document.getElementById('bio').value;
+      // Only show panel and heading if avatar is selected/uploaded and name is filled
+      if (selectedAvatar && document.getElementById('displayName').value.trim()) {
+        previewPanel.classList.remove('hidden');
+        previewHeading.classList.remove('hidden');
+      } else {
+        previewPanel.classList.add('hidden');
+        previewHeading.classList.add('hidden');
+      }
+    }
+
+    // Submit profile and redirect
+    function submitProfile() {
+      const name = document.getElementById('displayName').value.trim();
+      const bio = document.getElementById('bio').value.trim();
+      if (!name || !selectedAvatar) {
+        showCustomAlert('Please enter name and select/upload an image.');
+        return;
+      }
+      // Save profile data to localStorage
+      const profile = {
+        name: name,
+        bio: bio,
+        avatar: selectedAvatar
+      };
+      localStorage.setItem('userProfile', JSON.stringify(profile));
+      // Show success alert, then redirect after OK
+      showCustomAlert(
+        'Profile created successfully!<br>Name: ' + name + '<br>Bio: ' + bio,
+        function () {
+          window.location.href = 'index.html';
+        }
+      );
+    }
+    const profile = JSON.parse(localStorage.getItem('userProfile'));
+    if (profile && profile.avatar) {
+      // Use the user's avatar
+      document.getElementById('profilePic').src = profile.avatar; // For <img>
+      // or
+      document.getElementById('profilePicSetting').style.backgroundImage = `url('${profile.avatar}')`; // For background-image
+    } else {
+      // Use default avatar
+      document.getElementById('profilePic').src = 'Avatars/Ava.png';
+      // or
+      document.getElementById('profilePicSetting').style.backgroundImage = "url('Avatars/Ava.png')";
+    }
+
+
+    // Custom alert modal
+    function showCustomAlert(message, callback) {
+      document.getElementById('customAlertMessage').innerHTML = message;
+      document.getElementById('customAlert').classList.remove('hidden');
+      // Store callback for OK button
+      window._customAlertCallback = callback || null;
+    }
+
+    function closeCustomAlert() {
+      document.getElementById('customAlert').classList.add('hidden');
+      if (window._customAlertCallback) {
+        window._customAlertCallback();
+        window._customAlertCallback = null;
+      }
+    }
+
+    // Live update preview as user types
+    document.getElementById('displayName').addEventListener('input', updatePreviewDetails);
+    document.getElementById('bio').addEventListener('input', updatePreviewDetails);
+
+  </script>
+
+</body>
+
+</html>
